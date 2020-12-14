@@ -18,7 +18,7 @@ namespace BlazorApp36.Client
 			builder.RootComponents.Add<App>("#app");
 
 			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+			builder.Services.AddSingleton<Svasta>();
 			await builder.Build().RunAsync();
 		}
 	}
@@ -29,5 +29,26 @@ namespace BlazorApp36.Client
 	{
 		public string Ime { get; set; }
 		public string Prezime { get; set; }
+	}
+
+	public class Svasta
+	{
+		private Test _t = new Test();
+		public Test t 
+		{
+			get => _t;
+			set
+			{
+				_t = value;
+				onPromena?.Invoke();
+			}
+		} 
+
+		public event Action onPromena;
+
+		public void Promena()
+		{
+			onPromena?.Invoke();
+		}
 	}
 }

@@ -1,28 +1,17 @@
 ﻿@page "/"
-
+@inject Svasta sv
 <div>
 Dete se javilo:
-	@if (t != null)
-	{
-	<b>@t.Ime -- @t.Prezime</b>	
-	}
+<b>@sv.t.Ime -- @sv.t.Prezime</b>	
 </div>
-@foreach(Test t in tLst)
-{
-	<Component t="t" Poziv="OdDeteta"/>
-}
+
+<Component/>
+
 
 @code
 {
 
 	public List<Test> tLst = new List<Test>();
-	private Test t;
-
-	public void OdDeteta(Test ta)
-	{
-		t = ta;
-		StateHasChanged();
-	}
 
 	protected override void OnInitialized()
 	{
@@ -30,5 +19,12 @@ Dete se javilo:
 		tLst.Add(new Test { Ime = "Neko", Prezime = "Nekovic" });
 		tLst.Add(new Test { Ime = "Trecko", Prezime = "Treckovic" });
 		tLst.Add(new Test { Ime = "Asd", Prezime = "Qwe" });
+		sv.onPromena += DogodilaSePromena;
+		sv.t = new Test { Ime = "Pera", Prezime = "Peric" };
+	}
+
+	public void DogodilaSePromena()
+	{
+		StateHasChanged();
 	}
 }

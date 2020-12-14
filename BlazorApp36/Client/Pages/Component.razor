@@ -1,20 +1,25 @@
-﻿
+﻿@inject Svasta sv
 
 <b>Komponenta</b>
-<div>@t.Ime -- @t.Prezime</div>
+<div>@sv.t.Ime -- @sv.t.Prezime</div>
 <button @onclick="Salji">Salji :)</button>
 
 @code 
 {
-	[Parameter]
-	public Test t { get; set; }
-
-	[Parameter]
-	public Poziv Poziv { get; set; }
-
-	private void Salji()
+	protected override void OnInitialized()
 	{
-		Poziv?.Invoke(t);
+		sv.onPromena += DogodilaSePromena;
 	}
 
+	public void Salji()
+	{
+		sv.t.Ime = "Neko";
+		sv.t.Prezime = "Nekic";
+		sv.Promena();
+	}
+
+	public void DogodilaSePromena()
+	{
+		StateHasChanged();
+	}
 }

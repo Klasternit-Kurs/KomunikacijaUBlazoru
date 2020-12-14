@@ -1,16 +1,28 @@
 ﻿@page "/counter"
-
+@inject Svasta sv
 <h1>Counter</h1>
-
+@sv.t.Ime -- @sv.t.Prezime
 <p>Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private int currentCount = 0;
+	private int currentCount = 0;
 
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
+
+	protected override void OnInitialized()
+	{
+		sv.onPromena += DogodilaSePromena;
+	}
+
+	public void DogodilaSePromena()
+	{
+		StateHasChanged();
+	}
+
+	private void IncrementCount()
+	{
+		sv.t = new Test { Ime = "Asddsasdad", Prezime = "asdasdasdasd" };
+		currentCount++;
+	}
 }
