@@ -1,0 +1,34 @@
+﻿@page "/"
+
+<div>
+Dete se javilo:
+	@if (t != null)
+	{
+	<b>@t.Ime -- @t.Prezime</b>	
+	}
+</div>
+@foreach(Test t in tLst)
+{
+	<Component t="t" Poziv="OdDeteta"/>
+}
+
+@code
+{
+
+	public List<Test> tLst = new List<Test>();
+	private Test t;
+
+	public void OdDeteta(Test ta)
+	{
+		t = ta;
+		StateHasChanged();
+	}
+
+	protected override void OnInitialized()
+	{
+		tLst.Add(new Test { Ime = "Pera", Prezime = "Peric" });
+		tLst.Add(new Test { Ime = "Neko", Prezime = "Nekovic" });
+		tLst.Add(new Test { Ime = "Trecko", Prezime = "Treckovic" });
+		tLst.Add(new Test { Ime = "Asd", Prezime = "Qwe" });
+	}
+}

@@ -1,0 +1,20 @@
+﻿
+
+<b>Komponenta</b>
+<div>@t.Ime -- @t.Prezime</div>
+<button @onclick="Salji">Salji :)</button>
+
+@code 
+{
+	[Parameter]
+	public Test t { get; set; }
+
+	[Parameter]
+	public Poziv Poziv { get; set; }
+
+	private void Salji()
+	{
+		Poziv?.Invoke(t);
+	}
+
+}
